@@ -1,23 +1,16 @@
-import './styles.css';
-import templatesCountries from './templates/countries.hbs';
+import fetchCountries from './js/fetchCountries';
+import './js/notifications';
+import refs from './js/refs';
 
-const refs = {
-  searchForm: document.querySelector('.js-search-form'),
-  containerCountries: document.querySelector('.js-countries'),
-};
+import './sass/styles.scss';
 
-refs.searchForm.addEventListener('submit', event => {
-  event.preventDefault();
+const debounce = require('lodash.debounce');
 
-  const form = refs.searchForm;
-  const inputValue = form.elements.query.value;
+const debouncedInputCallback = debounce(() => {
+  const inputValue = refs.searchInput.value;
+  refs.containerCountries.innerHTML = '';
 
-  fetch(`https://restcountries.eu/rest/v2/name/${inputValue}`)
-    .then(res => res.json())
-    .then(name => {
-      console.log(name);
-      const markup = templatesCountries(name);
+  fetchCountries(inputValue);
+}, 500);
 
-      refs.containerCountries.insertAdjacentHTML('beforeend', markup);
-    });
-});
+refs.searchInput.addEventListener('input', debouncedInputCallback);
