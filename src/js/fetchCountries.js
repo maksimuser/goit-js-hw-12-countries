@@ -1,11 +1,10 @@
 import updateCountriesMarkup from './update-markup';
 
-function fetchCountries(inputValue) {
-  fetch(`https://restcountries.eu/rest/v2/name/${inputValue}`)
+function fetchCountries(searchQuery) {
+  fetch(`https://restcountries.eu/rest/v2/name/${searchQuery}`)
     .then(res => res.json())
-    .then(name => {
-      console.log(name);
-      updateCountriesMarkup(name);
+    .then(nameCountry => {
+      updateCountriesMarkup(nameCountry);
     });
 }
 
