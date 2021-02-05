@@ -8,6 +8,7 @@ const debouncedInputCallback = debounce(() => {
   const searchQuery = refs.searchInput.value;
 
   clearMarkup();
+
   fetchCountries(searchQuery);
 }, 500);
 
