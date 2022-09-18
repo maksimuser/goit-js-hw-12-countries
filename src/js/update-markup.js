@@ -19,8 +19,8 @@ function updateCountriesMarkup(nameCountry) {
     return clearMarkup();
   } else if (nameCountry.length >= 2 && nameCountry.length <= 10) {
     const listName = nameCountry
-      .map(el => {
-        return `<li><h1>${el.name}</h1></li>`;
+      .map(({ name }) => {
+        return `<li><h1>${name}</h1></li>`;
       })
       .join('');
 
